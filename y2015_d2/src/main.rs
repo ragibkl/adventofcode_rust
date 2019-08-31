@@ -32,6 +32,10 @@ impl GiftBox {
     fn get_total_area(&self) -> i32 {
         self.get_area() + self.get_min_area()
     }
+
+    fn get_ribbon_length(&self) -> i32 {
+        2 * (self.x + self.y) + self.x * self.y * self.z
+    }
 }
 
 
@@ -47,10 +51,13 @@ fn read_input_lines() -> Vec<String> {
 fn main() {
     println!("Hello, World!");
     let mut sum_area = 0;
+    let mut sum_ribbon = 0;
 
     for line in read_input_lines() {
         let gift_box = GiftBox::from_str(line);
         sum_area += gift_box.get_total_area();
+        sum_ribbon += gift_box.get_ribbon_length();
     }
     println!("total_area = {}", sum_area);
+    println!("total_ribbon = {}", sum_ribbon);
 }
