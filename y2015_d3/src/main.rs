@@ -55,4 +55,18 @@ fn main() {
     }
 
     println!("count = {}", grid.count());
+
+    let mut santa_grid = HouseGrid::new();
+    let mut robo_grid = HouseGrid::new();
+
+    for (i, c) in read_input_file().chars().enumerate() {
+        if i % 2 == 0 {
+            santa_grid.walk_char(c);
+        } else {
+            robo_grid.walk_char(c);
+        }
+    }
+
+    let joint_hash: HashSet<_> = santa_grid.hash.union(&robo_grid.hash).collect();
+    println!("count_2 = {}", joint_hash.len());
 }

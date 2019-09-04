@@ -13,8 +13,6 @@ For example:
     ^v^v^v^v^v delivers a bunch of presents to some very lucky children at only 2 houses.
 
 Your puzzle answer was 2572.
-
-The first half of this puzzle is complete! It provides one gold star: *
 --- Part Two ---
 
 The next year, to speed up the process, Santa creates a robot version of himself, Robo-Santa, to deliver presents with him.
@@ -29,6 +27,4 @@ For example:
     ^>v< now delivers presents to 3 houses, and Santa and Robo-Santa end up back where they started.
     ^v^v^v^v^v now delivers presents to 11 houses, with Santa going one direction and Robo-Santa going the other.
 
-Although it hasn't changed, you can still get your puzzle input.
-
-Answer:
+Your puzzle answer was 2631.
