@@ -1,0 +1,8 @@
+[package]
+name = "y2015_d4"
+version = "0.1.0"
+authors = ["Ragib Badaruddin <ragib.badaruddin@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+rust-crypto = "0.2.35"
