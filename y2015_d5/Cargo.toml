@@ -1,0 +1,7 @@
+[package]
+name = "y2015_d5"
+version = "0.1.0"
+authors = ["Ragib Badaruddin <ragib.badaruddin@gmail.com>"]
+edition = "2018"
+
+[dependencies]
