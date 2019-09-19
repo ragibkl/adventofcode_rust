@@ -10,7 +10,7 @@ fn read_input_lines() -> Vec<String> {
     reader.lines().map(|l| l.unwrap()).collect()
 }
 
-fn has_three_vowel(string: &str) -> bool {
+fn has_three_vowels(string: &str) -> bool {
     let vocals = ['a', 'e', 'i', 'o', 'u'];
     let ab: Vec<char> = string
         .chars()
@@ -21,7 +21,7 @@ fn has_three_vowel(string: &str) -> bool {
     ab.len() >= 3
 }
 
-fn contains_double_chars(string: &str) -> bool {
+fn has_double_chars(string: &str) -> bool {
     let mut prev_c = string.chars().next().unwrap();
     for c in string.chars().skip(1) {
         if c == prev_c {
@@ -30,6 +30,18 @@ fn contains_double_chars(string: &str) -> bool {
         prev_c = c;
     }
     false
+}
+
+fn has_no_invalid_terms(string: &str) -> bool {
+    let excludes = ["ab", "cd", "pq", "xy"];
+    let ab: Vec<&str> = excludes
+        .iter()
+        .filter(|x| string.contains(*x))
+        .take(1)
+        .map(|x| *x)
+        .collect();
+    println!("ab = {:?}", ab);
+    ab.len() == 0
 }
 
 fn main() {
@@ -44,23 +56,32 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_has_three_vowel() {
-        assert_eq!(true, has_three_vowel("aei"));
-        assert_eq!(true, has_three_vowel("xazegov"));
-        assert_eq!(true, has_three_vowel("aeiouaeiouaeiou"));
+    fn test_has_three_vowels() {
+        assert_eq!(true, has_three_vowels("aei"));
+        assert_eq!(true, has_three_vowels("xazegov"));
+        assert_eq!(true, has_three_vowels("aeiouaeiouaeiou"));
 
-        assert_eq!(false, has_three_vowel("iop"));
-        assert_eq!(false, has_three_vowel("batman"));
-        assert_eq!(false, has_three_vowel("super"));
+        assert_eq!(false, has_three_vowels("iop"));
+        assert_eq!(false, has_three_vowels("batman"));
+        assert_eq!(false, has_three_vowels("super"));
     }
 
     #[test]
-    fn test_contains_double_chars() {
-        assert_eq!(true, contains_double_chars("xx"));
-        assert_eq!(true, contains_double_chars("abcdde"));
-        assert_eq!(true, contains_double_chars("aabbccdd"));
+    fn test_has_double_chars() {
+        assert_eq!(true, has_double_chars("xx"));
+        assert_eq!(true, has_double_chars("abcdde"));
+        assert_eq!(true, has_double_chars("aabbccdd"));
 
-        assert_eq!(false, contains_double_chars("abcde"));
-        assert_eq!(false, contains_double_chars("xkcd"));
+        assert_eq!(false, has_double_chars("abcde"));
+        assert_eq!(false, has_double_chars("xkcd"));
+    }
+
+    #[test]
+    fn test_has_no_invalid_terms() {
+        assert_eq!(true, has_no_invalid_terms("rust"));
+        assert_eq!(true, has_no_invalid_terms("python"));
+
+        assert_eq!(false, has_no_invalid_terms("ab"));
+        assert_eq!(false, has_no_invalid_terms("sfdcdsdf"));
     }
 }
