@@ -21,6 +21,17 @@ fn has_three_vowel(string: &str) -> bool {
     ab.len() >= 3
 }
 
+fn contains_double_chars(string: &str) -> bool {
+    let mut prev_c = string.chars().next().unwrap();
+    for c in string.chars().skip(1) {
+        if c == prev_c {
+            return true;
+        }
+        prev_c = c;
+    }
+    false
+}
+
 fn main() {
     let lines = read_input_lines();
     for line in lines {
@@ -41,5 +52,15 @@ mod tests {
         assert_eq!(false, has_three_vowel("iop"));
         assert_eq!(false, has_three_vowel("batman"));
         assert_eq!(false, has_three_vowel("super"));
+    }
+
+    #[test]
+    fn test_contains_double_chars() {
+        assert_eq!(true, contains_double_chars("xx"));
+        assert_eq!(true, contains_double_chars("abcdde"));
+        assert_eq!(true, contains_double_chars("aabbccdd"));
+
+        assert_eq!(false, contains_double_chars("abcde"));
+        assert_eq!(false, contains_double_chars("xkcd"));
     }
 }
