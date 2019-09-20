@@ -60,6 +60,17 @@ fn has_double_pairs(string: &str) -> bool {
     false
 }
 
+fn has_split_pair(string: &str) -> bool {
+    for (i, c) in string.chars().enumerate().skip(2) {
+        let prev_c = string.chars().nth(i - 2).unwrap();
+        if c == prev_c {
+            return true;
+        }
+    }
+
+    false
+}
+
 pub fn is_nice(string: &str) -> bool {
     has_three_vowels(string) && has_double_chars(string) && has_no_invalid_terms(string)
 }
@@ -112,5 +123,14 @@ mod tests {
         assert_eq!(true, is_nice("ugknbfddgicrmopn"));
 
         assert_eq!(false, is_nice("jchzalrnumimnmhp"));
+    }
+
+    #[test]
+    fn test_has_split_pair() {
+        assert_eq!(true, has_split_pair("xyx"));
+        assert_eq!(true, has_split_pair("abcdefeghi"));
+        assert_eq!(true, has_split_pair("aaa"));
+
+        assert_eq!(false, has_split_pair("abcde"));
     }
 }
