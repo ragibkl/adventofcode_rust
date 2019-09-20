@@ -31,6 +31,10 @@ fn has_no_invalid_terms(string: &str) -> bool {
     ab.len() == 0
 }
 
+pub fn is_nice(string: &str) -> bool {
+    has_three_vowels(string) && has_double_chars(string) && has_no_invalid_terms(string)
+}
+
 fn has_double_pairs(string: &str) -> bool {
     if string.len() < 4 {
         return false;
@@ -56,10 +60,6 @@ fn has_split_pair(string: &str) -> bool {
     }
 
     false
-}
-
-pub fn is_nice(string: &str) -> bool {
-    has_three_vowels(string) && has_double_chars(string) && has_no_invalid_terms(string)
 }
 
 pub fn is_nicer(string: &str) -> bool {
@@ -101,6 +101,14 @@ mod tests {
     }
 
     #[test]
+    fn test_is_nice() {
+        assert_eq!(true, is_nice("aaa"));
+        assert_eq!(true, is_nice("ugknbfddgicrmopn"));
+
+        assert_eq!(false, is_nice("jchzalrnumimnmhp"));
+    }
+
+    #[test]
     fn test_has_double_pairs() {
         assert_eq!(true, has_double_pairs("qjhvhtzxzqqjkmpb"));
         assert_eq!(true, has_double_pairs("aabcdefgaa"));
@@ -117,14 +125,6 @@ mod tests {
         assert_eq!(true, has_split_pair("aaa"));
 
         assert_eq!(false, has_split_pair("abcde"));
-    }
-
-    #[test]
-    fn test_is_nice() {
-        assert_eq!(true, is_nice("aaa"));
-        assert_eq!(true, is_nice("ugknbfddgicrmopn"));
-
-        assert_eq!(false, is_nice("jchzalrnumimnmhp"));
     }
 
     #[test]
