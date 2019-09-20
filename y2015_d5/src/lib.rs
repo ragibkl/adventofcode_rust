@@ -36,25 +36,12 @@ fn has_double_pairs(string: &str) -> bool {
         return false;
     }
 
-    let mut prev_c = string.chars().next().unwrap();
-    for (c_i, c) in string.chars().enumerate().skip(1) {
-        if c == prev_c {
-            let mut prev_d = string.chars().skip(c_i).next().unwrap();
-            println!("c_i = {}", c_i);
-            println!("c = {}", c);
-            for d in string.chars().skip(c_i + 2) {
-                println!("prev_d = {}", prev_d);
-                println!("d = {}", d);
-
-                println!("d == prev_d = {}", d == prev_d);
-                println!("c == prev_d = {}", c == prev_d);
-                if d == prev_d && prev_d == c {
-                    return true;
-                }
-                prev_d = d;
-            }
+    for (i, _c) in string.chars().enumerate().skip(1) {
+        let pair = &string[i - 1..i + 1];
+        let sub_str = &string[i + 1..];
+        if sub_str.contains(pair) {
+            return true;
         }
-        prev_c = c;
     }
 
     false
@@ -73,6 +60,10 @@ fn has_split_pair(string: &str) -> bool {
 
 pub fn is_nice(string: &str) -> bool {
     has_three_vowels(string) && has_double_chars(string) && has_no_invalid_terms(string)
+}
+
+pub fn is_nicer(string: &str) -> bool {
+    has_double_pairs(string) && has_split_pair(string)
 }
 
 #[cfg(test)]
@@ -111,10 +102,21 @@ mod tests {
 
     #[test]
     fn test_has_double_pairs() {
+        assert_eq!(true, has_double_pairs("qjhvhtzxzqqjkmpb"));
         assert_eq!(true, has_double_pairs("aabcdefgaa"));
-        assert_eq!(false, has_double_pairs("xyxy"));
+        assert_eq!(true, has_double_pairs("xyxy"));
 
         assert_eq!(false, has_double_pairs("aaa"));
+    }
+
+    #[test]
+    fn test_has_split_pair() {
+        assert_eq!(true, has_double_pairs("qjhvhtzxzqqjkmpb"));
+        assert_eq!(true, has_split_pair("xyx"));
+        assert_eq!(true, has_split_pair("abcdefeghi"));
+        assert_eq!(true, has_split_pair("aaa"));
+
+        assert_eq!(false, has_split_pair("abcde"));
     }
 
     #[test]
@@ -126,11 +128,11 @@ mod tests {
     }
 
     #[test]
-    fn test_has_split_pair() {
-        assert_eq!(true, has_split_pair("xyx"));
-        assert_eq!(true, has_split_pair("abcdefeghi"));
-        assert_eq!(true, has_split_pair("aaa"));
+    fn test_is_nicer() {
+        assert_eq!(true, is_nicer("qjhvhtzxzqqjkmpb"));
+        assert_eq!(true, is_nicer("xxyxx"));
 
-        assert_eq!(false, has_split_pair("abcde"));
+        assert_eq!(false, is_nicer("uurcxstgmygtbstg"));
+        assert_eq!(false, is_nicer("ieodomkazucvgmuy"));
     }
 }
