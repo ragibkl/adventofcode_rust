@@ -31,6 +31,35 @@ fn has_no_invalid_terms(string: &str) -> bool {
     ab.len() == 0
 }
 
+fn has_double_pairs(string: &str) -> bool {
+    if string.len() < 4 {
+        return false;
+    }
+
+    let mut prev_c = string.chars().next().unwrap();
+    for (c_i, c) in string.chars().enumerate().skip(1) {
+        if c == prev_c {
+            let mut prev_d = string.chars().skip(c_i).next().unwrap();
+            println!("c_i = {}", c_i);
+            println!("c = {}", c);
+            for d in string.chars().skip(c_i + 2) {
+                println!("prev_d = {}", prev_d);
+                println!("d = {}", d);
+
+                println!("d == prev_d = {}", d == prev_d);
+                println!("c == prev_d = {}", c == prev_d);
+                if d == prev_d && prev_d == c {
+                    return true;
+                }
+                prev_d = d;
+            }
+        }
+        prev_c = c;
+    }
+
+    false
+}
+
 pub fn is_nice(string: &str) -> bool {
     has_three_vowels(string) && has_double_chars(string) && has_no_invalid_terms(string)
 }
@@ -67,6 +96,14 @@ mod tests {
 
         assert_eq!(false, has_no_invalid_terms("ab"));
         assert_eq!(false, has_no_invalid_terms("sfdcdsdf"));
+    }
+
+    #[test]
+    fn test_has_double_pairs() {
+        assert_eq!(true, has_double_pairs("aabcdefgaa"));
+        assert_eq!(false, has_double_pairs("xyxy"));
+
+        assert_eq!(false, has_double_pairs("aaa"));
     }
 
     #[test]
