@@ -2,7 +2,7 @@ use std::fs;
 use std::io::{BufRead, BufReader};
 
 mod lib;
-use lib::is_nice;
+use lib::{is_nice, is_nicer};
 
 fn read_input_lines() -> Vec<String> {
     let filename = "input.txt";
@@ -22,4 +22,12 @@ fn main() {
         .collect();
 
     println!("nice count = {}", nice_list.len());
+
+    let nicer_list: Vec<String> = lines
+        .iter()
+        .filter(|x| is_nicer(&x))
+        .map(|x| x.clone())
+        .collect();
+
+    println!("nice count = {}", nicer_list.len());
 }
